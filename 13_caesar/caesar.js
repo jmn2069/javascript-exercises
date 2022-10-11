@@ -1,38 +1,42 @@
 const caesar = function(string, key) {
     let caesarString = '';
+    let charCode = 0;
+
     while (key > 26) {
         key -= 26;
     }
     while (key < 0) {
         key += 26;
     }
-    Loop1:
+
     for (let i = 0; i < string.length; i++) {
-        if (string.charCodeAt(i) > 64 && string.charCodeAt(i) < 91) { // is upper case
-            if (string.charCodeAt(i) + key < 65) {
-                caesarString += String.fromCharCode(90 - (64 - (string.charCodeAt(i) + key)));
-                continue Loop1;
-            } else if (string.charCodeAt(i) + key > 90) {
-                caesarString += String.fromCharCode(((string.charCodeAt(i) + key) - 26));
-                continue Loop1;
+        charCode = string.charCodeAt(i);
+
+        if (charCode > 64 && charCode < 91) {
+            if (charCode + key < 65) {
+                caesarString += String.fromCharCode(26 + (charCode + key))
+            } else if (charCode + key > 90) {
+                    caesarString += String.fromCharCode((charCode + key) - 26);
+            } else {
+                caesarString += String.fromCharCode(charCode + key);
             }
-            caesarString += String.fromCharCode(string.charCodeAt(i) + key);
-            continue Loop1;
+            continue;
         }
-        if (string.charCodeAt(i) > 96 && string.charCodeAt(i) < 123) { // is lower case
-            if (string.charCodeAt(i) + key < 97) {
-                caesarString += String.fromCharCode(122 - (97 - (string.charCodeAt(i) + key)));
-                continue Loop1;
+
+        if (charCode > 96 && charCode < 123) {
+            if (charCode + key < 97) {
+                caesarString += String.fromCharCode(26 + (charCode + key))
+            } else if (charCode + key > 122) {
+                caesarString += String.fromCharCode((charCode + key) - 26);
+            } else {
+                caesarString += String.fromCharCode(charCode + key);
             }
-            if (string.charCodeAt(i) + key > 122) {
-                caesarString += String.fromCharCode(((string.charCodeAt(i) + key) - 26));
-                continue Loop1;
-            }
-            caesarString += String.fromCharCode(string.charCodeAt(i) + key);
-            continue Loop1;
+            continue;
         }
-    caesarString += string[i];
+
+        caesarString += String.fromCharCode(charCode);
     }
+
     return caesarString;
 };
 
